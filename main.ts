@@ -1,4 +1,5 @@
 input.onGesture(Gesture.TiltLeft, function () {
+    radio.sendString("left")
     basic.showLeds(`
         . . # . .
         . # . . .
@@ -6,10 +7,9 @@ input.onGesture(Gesture.TiltLeft, function () {
         . # . . .
         . . # . .
         `)
-    radio.sendString("left")
-    basic.pause(100)
 })
 input.onGesture(Gesture.TiltRight, function () {
+    radio.sendString("right")
     basic.showLeds(`
         . . # . .
         . . . # .
@@ -17,16 +17,19 @@ input.onGesture(Gesture.TiltRight, function () {
         . . . # .
         . . # . .
         `)
-    radio.sendString("right")
-    basic.pause(100)
 })
-input.onGesture(Gesture.Shake, function () {
-    radio.sendNumber(0)
-    basic.showIcon(IconNames.No)
-    basic.pause(100)
+input.onGesture(Gesture.LogoDown, function () {
+    radio.sendString("back")
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        # . . . #
+        . # . # .
+        . . # . .
+        `)
 })
 input.onGesture(Gesture.LogoUp, function () {
-    radio.sendNumber(1)
+    radio.sendString("forward")
     basic.showLeds(`
         . . # . .
         . # . # .
@@ -34,8 +37,19 @@ input.onGesture(Gesture.LogoUp, function () {
         . . . . .
         . . . . .
         `)
-    basic.pause(100)
 })
 radio.setGroup(1)
 radio.sendString("hello")
 basic.showIcon(IconNames.Heart)
+basic.forever(function () {
+    if (input.buttonIsPressed(Button.A)) {
+        radio.sendString("stop")
+        basic.showLeds(`
+            # . . . #
+            . # . # .
+            . . # . .
+            . # . # .
+            # . . . #
+            `)
+    }
+})
